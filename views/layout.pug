@@ -1,18 +1,20 @@
 doctype html
+//- mixin działa jak funkcja
+mixin item(url, title)
+  li 
+    a(href=url)=title 
+
 html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+  span=sciezka
     ul
-      li 
-        a(href="/") Strona główna
-      li 
-        a(href="/news") Aktualności
-      li 
-        a(href="/quiz") Quiz
-      li 
-        a(href="/admin") Admin
+      +item('/', 'Strona główna')
+      +item('/news', 'Aktualności')
+      +item('/quiz', 'Quiz')
+      +item('/admin', 'Admin')
 
         
     block content

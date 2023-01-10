@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
 var quizRouter = require('./routes/quiz');
 var adminRouter = require('./routes/admin');
+const { closeSync } = require('fs');
 
 
 var app = express();
@@ -21,6 +22,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// funkcja która przechwytuje adres url od klienta i przekazuje go dalej do widoków
+// funkcja posiada dodatkowo parametr 'next' który umoiżliwia przejście do kolenych routingów poniżej, nie zatrzymuje programu
+app.use((req, res, next) => {
+  // przekazujemy ścieżkę 'req.path' do zmiannej lokalnej 'res.locals.nazwaZmiennej'
+  // dzięki temu będziemy mieli do tej zmiennej dostęp w widokach
+  res.locals.sciezka = req.path;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/news', newsRouter);
