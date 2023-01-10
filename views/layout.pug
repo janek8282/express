@@ -1,20 +1,21 @@
 doctype html
 //- mixin działa jak funkcja
 mixin item(url, title)
-  li 
-    a(href=url)=title 
+  li(class='list-item') 
+    //- w linku href zdefiniowane są dwie klas. Piwerwsza to item  a drufa to active która jest ustawiana w zależności od scieżki
+    a(href=url class=`item ${url == sciezka ? 'active' : ''}`)=title 
 
 html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-  span=sciezka
-    ul
-      +item('/', 'Strona główna')
-      +item('/news', 'Aktualności')
-      +item('/quiz', 'Quiz')
-      +item('/admin', 'Admin')
+    nav  
+      ul
+        +item('/', 'Strona główna')
+        +item('/news', 'Aktualności')
+        +item('/quiz', 'Quiz')
+        +item('/admin', 'Admin')
 
         
     block content
